@@ -1,0 +1,40 @@
+name: Terraform Destroy Resources
+
+# Trigger the workflow manually
+on:
+  workflow_dispatch:  # Manual trigger
+
+env:            
+  AWS_REGION: us-east-1  # Define your AWS region
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest  # Define the runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3  # Checkout the repository
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Get AWS credentials from GitHub Secrets
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: '1.3.7'  # Set your desired Terraform version
+
+    - name: Terraform Init
+      run: terraform init  # Initialize Terraform
+
+    - name: Terraform Plan (optional)
+      run: terraform plan -destroy  # Plan the destruction of resources (optional but useful to review)
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve  # Destroy resources without needing manual confirmation
+
+    - name: Output destroy status
+      run: echo "Terraform resources destroyed successfully."
