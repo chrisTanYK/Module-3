@@ -31,5 +31,5 @@ jobs:
 
     - name: Push Docker image to Amazon ECR
       run: |
-        docker push <your-account-id>.dkr.ecr.us-east-1.amazonaws.com/chrisTanYK-flask-private-repository:latest
-        docker push <your-account-id>.dkr.ecr.us-east-1.amazonaws.com/chrisTanYK-flask-private-repository:${{ github.sha }}
+        docker push 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest
+        docker push 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:${{ github.sha }}
