@@ -28,9 +28,9 @@ jobs:
       run: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 255945442255.dkr.ecr.us-east-1.amazonaws.com
 
-    - name: Build and tag Docker image
+    - name: Build and tag Docker image from flask-app/Dockerfile
       run: |
-        docker build -t christanyk-flask-private-repository .
+        docker build -f flask-app/Dockerfile -t christanyk-flask-private-repository flask-app/
         docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest
         docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:${{ github.sha }}
 
