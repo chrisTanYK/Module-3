@@ -19,6 +19,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Create ECR repository if it does not exist
+      run: |
+        aws ecr describe-repositories --repository-names christanyk-flask-private-repository \
+        || aws ecr create-repository --repository-name christanyk-flask-private-repository
+
     - name: Login to Amazon ECR
       run: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 255945442255.dkr.ecr.us-east-1.amazonaws.com
@@ -27,7 +32,7 @@ jobs:
       run: |
         docker build -t christanyk-flask-private-repository .
         docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest
-        docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest:${{ github.sha }}
+        docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:${{ github.sha }}
 
     - name: Push Docker image to Amazon ECR
       run: |
