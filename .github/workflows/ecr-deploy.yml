@@ -31,7 +31,7 @@ jobs:
     - name: Build and tag Docker image from flask-app/Dockerfile
       working-directory: Assignment 3.4
       run: |
-        docker build -f Dockerfile -t christanyk-flask-private-repository /
+        docker build -f flask-app/Dockerfile -t christanyk-flask-private-repository /
         docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest
         docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:${{ github.sha }}
 
