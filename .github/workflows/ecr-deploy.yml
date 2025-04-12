@@ -31,8 +31,8 @@ jobs:
     - name: Build and tag Docker image from flask-app/Dockerfile
       run: |
         docker build -f flask-app/Dockerfile -t christanyk-flask-private-repository flask-app/
-        docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest
-        docker tag christanyk-flask-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:${{ github.sha }}
+        docker tag Assigment 3.4-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:latest
+        docker tag Assignment 3.4-private-repository:latest 255945442255.dkr.ecr.us-east-1.amazonaws.com/christanyk-flask-private-repository:${{ github.sha }}
 
     - name: Push Docker image to Amazon ECR
       run: |
